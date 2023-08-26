@@ -27,6 +27,9 @@ const getCities = async () => {
             )
         })
         const weatherData = await Promise.all(requests);
+
+        //Flicker Delay
+        await new Promise((res) => setTimeout(res, 1000))
         weatherData.forEach((value, index) => {
             savedCities.value[index].weather = value.data
         })
@@ -39,7 +42,11 @@ const goToCityView = (city) => {
     router.push({
         name: "cityView",
         params: {state: city.state, city: city.city},
-        query: {lat: city.coords.lat, lng: city.coords.lng}
-    })
-}
+        query: {
+            id: city.id,
+            lat: city.coords.lat,
+            lng: city.coords.lng,
+        },
+    });
+};
 </script>
